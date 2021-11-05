@@ -1,9 +1,6 @@
 package com.murilonerdx.doemais.exceptions.handle;
 
-import com.murilonerdx.doemais.exceptions.AuthorizationException;
-import com.murilonerdx.doemais.exceptions.DataIntegretyException;
-import com.murilonerdx.doemais.exceptions.StandardError;
-import com.murilonerdx.doemais.exceptions.ValidationError;
+import com.murilonerdx.doemais.exceptions.*;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,6 +45,12 @@ public class HandleExceptionGlobal {
     public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Acesso negado", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<StandardError> resourceNotFound(AuthorizationException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 

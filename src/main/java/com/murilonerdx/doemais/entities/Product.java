@@ -1,5 +1,6 @@
 package com.murilonerdx.doemais.entities;
 
+import com.murilonerdx.doemais.entities.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,5 @@ public class Product {
     private String description;
     private String imageUri;
     private LocalDateTime dueDate;
+    private OrderStatus status;
 }

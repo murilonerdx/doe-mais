@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,8 +20,8 @@ public class Ong {
     private String cnpj;
 
     @OneToOne
-    private User user;
+    private Userman userman;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    private OrdemItem ordemItem;
+    @OneToMany(fetch=FetchType.EAGER)
+    private List<OrderItem> orderItem;
 }

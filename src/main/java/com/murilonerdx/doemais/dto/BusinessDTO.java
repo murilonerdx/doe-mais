@@ -1,12 +1,9 @@
 package com.murilonerdx.doemais.dto;
 
-import com.murilonerdx.doemais.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.OneToOne;
 
 @Data
 @AllArgsConstructor

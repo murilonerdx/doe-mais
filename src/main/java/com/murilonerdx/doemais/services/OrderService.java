@@ -1,19 +1,18 @@
 package com.murilonerdx.doemais.services;
 
 import com.murilonerdx.doemais.dto.OrderDTO;
-import com.murilonerdx.doemais.dto.ProductDTO;
-import com.murilonerdx.doemais.entities.OrdemItem;
-import com.murilonerdx.doemais.entities.OrderStatus;
-import com.murilonerdx.doemais.entities.Product;
+import com.murilonerdx.doemais.entities.Business;
+import com.murilonerdx.doemais.entities.OrderItem;
+import com.murilonerdx.doemais.entities.enums.OrderStatus;
+import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
+import com.murilonerdx.doemais.repository.BusinessRepository;
 import com.murilonerdx.doemais.repository.OrderRepository;
-import com.murilonerdx.doemais.repository.ProductRepository;
+import com.murilonerdx.doemais.util.DozerConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -22,29 +21,41 @@ public class OrderService {
     private OrderRepository repository;
 
     @Autowired
-    private ProductRepository productRepository;
+    private BusinessRepository businessRepository;
 
-    @Transactional(readOnly = true)
-    public List<OrderDTO> findAll(){
-        List<OrdemItem> list = repository.findOrdersWithProducts();
-        return list.stream().map(OrderDTO::new).collect(Collectors.toList());
-    }
-    @Transactional
-    public OrderDTO insert(OrderDTO dto){
-        OrdemItem ordemItem = new OrdemItem(null, Instant.now(), OrderStatus.AVAILABLE);
-        for(ProductDTO p: dto.getProducts()){
-            Product product = productRepository.getOne(p.getId());
-            ordemItem.getProducts().add(product);
-        }
-        ordemItem = repository.save(ordemItem);
-        return new OrderDTO(ordemItem);
+    public List<OrderItem> findAll(){
+        return repository.findAll();
     }
 
-    @Transactional
-    public OrderDTO setDelivered(Long id){
-        OrdemItem ordemItem = repository.getOne(id);
-        ordemItem.setStatus(OrderStatus.UNAVAILABLE);
-        ordemItem = repository.save(ordemItem);
-        return new OrderDTO(ordemItem);
+    public OrderItem create(Long productId, Long businessId) {
+        OrderItem orderItem = new OrderItem();
+        Business business = businessRepository.findById(businessId).orElseThrow(() -> new ResourceNotFoundException("Empresa não encontada"));
+        business.getProducts().stream().map(x -> {
+            if (x.getId().equals(productId)) {
+                x.setStatus(OrderStatus.UNAVAILABLE);
+                orderItem.getProducts().add(x);
+                return x;
+            }
+            return x;
+        });
+
+        if(orderItem.getProducts().isEmpty()) return null;
+        orderItem.setMoment(Instant.now());
+        businessRepository.save(business);
+        return repository.save(orderItem);
+    }
+
+    public OrderDTO findById(Long id) {
+
+        OrderItem entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        return DozerConverter.parseObject(entity, OrderDTO.class);
+    }
+
+
+    public void delete(Long id) {
+        OrderItem entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        repository.delete(entity);
     }
 }

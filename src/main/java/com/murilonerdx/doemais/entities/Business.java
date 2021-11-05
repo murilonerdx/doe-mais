@@ -1,6 +1,5 @@
 package com.murilonerdx.doemais.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,7 @@ public class Business {
     private String website;
     private String address;
     @OneToOne
-    private User user;
+    private Userman userman;
     //Calculo a partir do dia e a quantidade de produto aceito.
     private double tribute;
 

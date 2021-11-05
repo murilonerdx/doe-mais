@@ -1,34 +1,40 @@
 package com.murilonerdx.doemais.config;
 
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
+import javax.servlet.annotation.WebServlet;
 import java.util.List;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
+@EnableWebMvc
+public class WebConfig implements WebMvcConfigurer {
 
     private static final MediaType MEDIA_TYPE_YML = MediaType.valueOf("application/x-yaml");
 
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(new YamlJackson2HttpMessageConverter());
-    }
 
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
+            "classpath:/META-INF/resources/", "classpath:/resources/",
+            "classpath:/static/", "classpath:/public/"};
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/")
+                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);;
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer ) {
-        configurer
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.favorPathExtension(false)
                 .favorParameter(false)
                 .ignoreAcceptHeader(false)
                 .useRegisteredExtensionsOnly(false)

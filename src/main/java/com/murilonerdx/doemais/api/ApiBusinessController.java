@@ -5,6 +5,7 @@ import com.murilonerdx.doemais.entities.Business;
 import com.murilonerdx.doemais.entities.Product;
 import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.services.BusinessService;
+import com.murilonerdx.doemais.util.DozerConverter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -32,9 +33,10 @@ public class ApiBusinessController {
     }
 
     @PostMapping
-    public ResponseEntity<Business> create(@RequestBody BusinessDTO business) {
+    public ResponseEntity<BusinessDTO> create(@RequestBody BusinessDTO business) {
         Business obj = service.create(business);
-        return ResponseEntity.ok().body(obj);
+        BusinessDTO objDTO = DozerConverter.parseObject(obj, BusinessDTO.class);
+        return ResponseEntity.ok().body(objDTO);
     }
 
     @ApiImplicitParams({
@@ -64,17 +66,4 @@ public class ApiBusinessController {
         return ResponseEntity.noContent().build();
     }
 
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                    required = true, dataType = "string", paramType = "header") })
-    @PostMapping("/product/{id}")
-    public ResponseEntity<Business> addProduct(@RequestBody Product product, @PathVariable Long id) {
-        try {
-            Business obj = service.addProduct(product, id);
-            return ResponseEntity.ok().body(obj);
-        } catch (RuntimeException e) {
-            throw new ResourceNotFoundException("Produto com id " + id + " não encontrado");
-        }
-
-    }
 }

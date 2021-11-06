@@ -1,8 +1,7 @@
 package com.murilonerdx.doemais.api;
 
 import com.murilonerdx.doemais.dto.OrderDTO;
-import com.murilonerdx.doemais.entities.Business;
-import com.murilonerdx.doemais.entities.OrderItem;
+import com.murilonerdx.doemais.entities.Order;
 import com.murilonerdx.doemais.services.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,15 +24,9 @@ public class ApiOrderController {
     private OrderService service;
 
     @GetMapping()
-    public ResponseEntity<List<OrderItem>> listAll(){
-        List<OrderItem> listOrderDTO = service.findAll();
+    public ResponseEntity<List<Order>> listAll(){
+        List<Order> listOrderDTO = service.findAll();
         return ResponseEntity.ok(listOrderDTO);
-    }
-
-    @PostMapping("/product/{productId}/business/{businessId}")
-    public ResponseEntity<OrderItem> orderItem(Long productId, Long businessId){
-        OrderItem obj = service.create(productId, businessId);
-        return ResponseEntity.ok().body(obj);
     }
 
     @GetMapping("/{id}")

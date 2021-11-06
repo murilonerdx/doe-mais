@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="TB_ONG")
 public class Ong{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -18,10 +19,7 @@ public class Ong{
 
     private String name;
     private String cnpj;
-    private String endereco;
-
-    @OneToMany(fetch=FetchType.EAGER)
-    private List<OrderItem> orderItem;
+    private String address;
 
     @OneToOne(cascade=CascadeType.PERSIST)
     private Userman user;

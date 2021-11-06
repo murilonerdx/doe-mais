@@ -14,7 +14,8 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItem {
+@Table(name="TB_ORDER_ITEM")
+public class Order {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +26,10 @@ public class OrderItem {
     @JoinTable(name ="tb_order_product", joinColumns = @JoinColumn(name="order_id"), inverseJoinColumns = @JoinColumn(name="product_id"))
     private Set<Product> products = new HashSet<>();
 
-    public OrderItem(Long id, Instant moment) {
+    @OneToOne()
+    private Ong org;
+
+    public Order(Long id, Instant moment) {
         this.id = id;
         this.moment = moment;
     }

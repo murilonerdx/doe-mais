@@ -18,16 +18,17 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="TB_USERMAN")
 public class Userman implements UserDetails {
     @Id
-    @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="user_name", unique=true)
+    @Column(unique=true)
     private String username;
     private String password;
 
-    @ManyToMany()
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_permission", joinColumns = {
             @JoinColumn(name = "id_user")
     }, inverseJoinColumns = {

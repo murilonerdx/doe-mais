@@ -2,6 +2,7 @@ package com.murilonerdx.doemais.services;
 
 import com.murilonerdx.doemais.dto.BusinessDTO;
 import com.murilonerdx.doemais.entities.Business;
+import com.murilonerdx.doemais.entities.Permission;
 import com.murilonerdx.doemais.entities.Product;
 import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.repository.BusinessRepository;
@@ -23,12 +24,7 @@ public class BusinessService {
         String password = businessDTO.getUser().getPassword();
         businessDTO.getUser().setPassword(new BCryptPasswordEncoder().encode(password));
         Business business = DozerConverter.parseObject(businessDTO, Business.class);
-        return repository.save(business);
-    }
-
-    public Business addProduct(Product product, Long id) {
-        Business business = repository.findById(id).get();
-        business.getProducts().add(product);
+        business.getUser().getPermissions().add(new Permission(null, "ROLE_BUSINESS"));
         return repository.save(business);
     }
 
@@ -44,7 +40,6 @@ public class BusinessService {
 
     public Business createProduct(Product product, Long id){
         Business business = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Empresa não encontada"));
-        business.getProducts().add(product);
         return repository.save(business);
     }
 

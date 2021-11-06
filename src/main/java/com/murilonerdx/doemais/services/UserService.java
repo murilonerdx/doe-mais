@@ -1,6 +1,5 @@
 package com.murilonerdx.doemais.services;
 
-
 import com.murilonerdx.doemais.entities.Userman;
 import com.murilonerdx.doemais.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ public class UserService implements UserDetailsService {
 
     final
     UserRepository repository;
+
 
     @Autowired
     public UserService(UserRepository repository) {

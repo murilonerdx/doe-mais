@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="TB_PRODUCT")
 public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -21,4 +22,7 @@ public class Product {
     private String imageUri;
     private LocalDateTime dueDate;
     private OrderStatus status;
+
+    @OneToOne
+    private Business business;
 }

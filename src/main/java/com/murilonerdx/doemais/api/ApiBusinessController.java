@@ -17,13 +17,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/business")
 @Api(tags="Endpoint de empresas")
-@ApiImplicitParams({
-        @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                required = true, dataType = "string", paramType = "header") })
+
 public class ApiBusinessController {
     @Autowired
     private BusinessService service;
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @GetMapping()
     public ResponseEntity<List<Business>> listAll() {
         List<Business> listBusiness = service.findAll();
@@ -36,24 +37,36 @@ public class ApiBusinessController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @PostMapping("/addProduct/{id}")
     public ResponseEntity<Business> create(@RequestBody Product productDTO, Long id){
         Business obj = service.createProduct(productDTO, id);
         return ResponseEntity.ok().body(obj);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @GetMapping("/{id}")
     public ResponseEntity<Business> getById(@PathVariable Long id) {
         Business business = service.findById(id);
         return ResponseEntity.ok().body(business);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @PostMapping("/product/{id}")
     public ResponseEntity<Business> addProduct(@RequestBody Product product, @PathVariable Long id) {
         try {

@@ -12,15 +12,17 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Business {
+public class Business{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String website;
     private String address;
-    @OneToOne
-    private Userman userman;
+
+    @OneToOne(cascade=CascadeType.PERSIST)
+    private Userman user;
+
     //Calculo a partir do dia e a quantidade de produto aceito.
     private double tribute;
 

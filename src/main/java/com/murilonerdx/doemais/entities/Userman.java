@@ -13,25 +13,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Userman implements UserDetails {
     @Id
+    @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name="user_name", unique=true)
     private String username;
     private String password;
-    @Column(name="account_non_expired")
-    private boolean accountNonExpired;
-    @Column(name="account_non_locked")
-    private boolean isAccountNonLocked;
-    @Column(name="credentials_non_expired")
-    private boolean isCredentialsNonExpired;
-    private boolean enabled;
 
     @ManyToMany()
     @JoinTable(name = "user_permission", joinColumns = {
@@ -67,21 +61,21 @@ public class Userman implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isAccountNonLocked;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.isCredentialsNonExpired;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return true;
     }
 }

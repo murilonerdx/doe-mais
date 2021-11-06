@@ -6,6 +6,7 @@ import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.repository.OngRepository;
 import com.murilonerdx.doemais.util.DozerConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class OngService {
     }
 
     public OngDTO create(OngDTO ongDTO) {
+        String password = ongDTO.getUser().getPassword();
+        ongDTO.getUser().setPassword(new BCryptPasswordEncoder().encode(password));
         Ong ong = DozerConverter.parseObject(ongDTO, Ong.class);
         return DozerConverter.parseObject(repository.save(ong), OngDTO.class);
     }

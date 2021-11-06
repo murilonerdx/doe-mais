@@ -19,14 +19,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/ong")
 @Api(tags="Endpoint de ongs")
-@ApiImplicitParams({
-        @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                required = true, dataType = "string", paramType = "header") })
 public class ApiOngController {
 
     @Autowired
     private OngService service;
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @GetMapping()
     public ResponseEntity<List<OngDTO>> listAll() {
         List<OngDTO> listOngs = service.findAll();
@@ -39,6 +39,9 @@ public class ApiOngController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header") })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         service.delete(id);

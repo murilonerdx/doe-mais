@@ -11,17 +11,18 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Ong {
+public class Ong{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String cnpj;
-
-    @OneToOne
-    private Userman userman;
+    private String endereco;
 
     @OneToMany(fetch=FetchType.EAGER)
     private List<OrderItem> orderItem;
+
+    @OneToOne(cascade=CascadeType.PERSIST)
+    private Userman user;
 }

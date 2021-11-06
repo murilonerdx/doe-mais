@@ -32,9 +32,11 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**")
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/api/business")
+                .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth")
                 .permitAll()
-                .antMatchers(HttpMethod.POST, "/api/usuario")
+                .antMatchers(HttpMethod.POST, "/api/ong")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

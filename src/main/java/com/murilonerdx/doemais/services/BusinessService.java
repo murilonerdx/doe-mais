@@ -7,6 +7,7 @@ import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.repository.BusinessRepository;
 import com.murilonerdx.doemais.util.DozerConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class BusinessService {
     private BusinessRepository repository;
 
     public Business create(BusinessDTO businessDTO) {
+        String password = businessDTO.getUser().getPassword();
+        businessDTO.getUser().setPassword(new BCryptPasswordEncoder().encode(password));
         Business business = DozerConverter.parseObject(businessDTO, Business.class);
         return repository.save(business);
     }

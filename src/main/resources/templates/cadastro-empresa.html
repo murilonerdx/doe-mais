@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Style/estilo-more-Details.css" th:href="@{/static/Style/estilo-more-Details.css}">
+
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="space-menu">
+
+    </div>
+
+    <div class="container">
+        <div class="left-div-ghost">
+            <div class="left-div">
+
+                <form th:action="@{}" method="POST" th:object="${obj}">
+
+                    <div style="background-color: rgba(255, 255, 255, 0.15); display:flex; flex-direction: column; padding: 5rem; border-radius: 20px;">
+
+                        <label for="">Username:</label>
+                        <input type="text" placeholder="Username" th:object="*{username}" name="username" id="username">
+
+                        <label for="">Website:</label>
+                        <input type="text" placeholder="Link do website" th:object="*{website}" name="website" id="website">
+
+                        <label for="">Endereço:</label>
+                        <input type="text" placeholder="Endereço" th:object="*{endereco}" name="endereco" id="endereco">
+
+                        <label for="">Senha:</label>
+                        <input type="text" placeholder="Senha" th:object="*{password}" name="password" id="password">
+
+
+                        <button class="BuyBtton" type="submit">
+                            Cadastrar
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+        </div>
+        
+
+
+
+        <div class="right-div">
+
+
+            <div style="width: 100%; height: 20rem;display: flex; justify-content:center; ">
+
+                <img src="../DOE +(1).png" alt="">
+
+            </div>
+
+
+
+
+        </div>
+        </div>
+</body>
+
+</html>

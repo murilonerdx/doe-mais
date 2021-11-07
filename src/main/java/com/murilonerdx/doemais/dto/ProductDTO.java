@@ -1,20 +1,19 @@
 package com.murilonerdx.doemais.dto;
 
+import com.murilonerdx.doemais.entities.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
-import org.hibernate.validator.constraints.br.CNPJ;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OngDTO {
+public class ProductDTO {
     private Long id;
     private String name;
-    @CNPJ
-    private String cnpj;
-    private String address;
-
-    private CredentialDTO user;
+    private String description;
+    private String imageUri;
+    private LocalDateTime dueDate;
 }

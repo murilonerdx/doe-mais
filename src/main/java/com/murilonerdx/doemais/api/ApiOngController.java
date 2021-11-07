@@ -35,8 +35,8 @@ public class ApiOngController {
 
     @PostMapping
     public ResponseEntity<OngDTO> create(@RequestBody OngDTO ongDTO) {
-        OngDTO obj = service.create(ongDTO);
-        return ResponseEntity.ok().body(obj);
+        service.create(ongDTO);
+        return ResponseEntity.ok().build();
     }
 
     @ApiImplicitParams({

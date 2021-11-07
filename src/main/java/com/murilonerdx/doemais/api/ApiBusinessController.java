@@ -1,6 +1,7 @@
 package com.murilonerdx.doemais.api;
 
 import com.murilonerdx.doemais.dto.BusinessDTO;
+import com.murilonerdx.doemais.dto.ProductDTO;
 import com.murilonerdx.doemais.entities.Business;
 import com.murilonerdx.doemais.entities.Product;
 import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/business")
-@Api(tags="Endpoint de empresas")
+@Api(tags = "Endpoint de empresas")
 
 public class ApiBusinessController {
     @Autowired
@@ -25,45 +26,50 @@ public class ApiBusinessController {
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                    required = true, dataType = "string", paramType = "header") })
+                    required = true, dataType = "string", paramType = "header")})
     @GetMapping()
-    public ResponseEntity<List<Business>> listAll() {
-        List<Business> listBusiness = service.findAll();
+    public ResponseEntity<List<BusinessDTO>> listAll() {
+        List<BusinessDTO> listBusiness = DozerConverter.parseListObjects(service.findAll(), BusinessDTO.class);
         return ResponseEntity.ok(listBusiness);
     }
 
     @PostMapping
     public ResponseEntity<BusinessDTO> create(@RequestBody BusinessDTO business) {
         Business obj = service.create(business);
-        BusinessDTO objDTO = DozerConverter.parseObject(obj, BusinessDTO.class);
-        return ResponseEntity.ok().body(objDTO);
+        DozerConverter.parseObject(obj, BusinessDTO.class);
+        return ResponseEntity.ok().build();
     }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                    required = true, dataType = "string", paramType = "header") })
+                    required = true, dataType = "string", paramType = "header")})
     @PostMapping("/addProduct/{id}")
-    public ResponseEntity<Business> create(@RequestBody Product productDTO, Long id){
-        Business obj = service.createProduct(productDTO, id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Long id) {
+        BusinessDTO businessDTO = service.createProduct(productDTO, id);
+
+        if (businessDTO == null) throw new ResourceNotFoundException("Você não tem permissão para isso");
+        return ResponseEntity.ok().build();
     }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                    required = true, dataType = "string", paramType = "header") })
+                    required = true, dataType = "string", paramType = "header")})
     @GetMapping("/{id}")
-    public ResponseEntity<Business> getById(@PathVariable Long id) {
-        Business business = service.findById(id);
+    public ResponseEntity<BusinessDTO> getById(@PathVariable Long id) {
+        BusinessDTO business = DozerConverter.parseObject(service.findById(id), BusinessDTO.class);
         return ResponseEntity.ok().body(business);
     }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "Authorization token",
-                    required = true, dataType = "string", paramType = "header") })
+                    required = true, dataType = "string", paramType = "header")})
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
 
 }

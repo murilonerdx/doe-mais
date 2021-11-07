@@ -3,6 +3,7 @@ package com.murilonerdx.doemais.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,7 @@ public class Userman implements UserDetails {
     private Long id;
     @Column(unique=true)
     private String username;
+    @JsonIgnore
     private String password;
 
 

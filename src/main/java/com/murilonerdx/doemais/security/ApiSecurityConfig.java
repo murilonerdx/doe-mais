@@ -55,6 +55,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/business")
                 .permitAll()
+                .antMatchers(HttpMethod.GET, "/api/business")
+                .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/ong")

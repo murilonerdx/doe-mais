@@ -76,7 +76,7 @@ public class ApiAuthController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "Authorization token",
                     required = true, dataType = "string", paramType = "header")})
-    @GetMapping
+    @GetMapping("/user")
     public ResponseEntity<OngDTO> getUser(HttpServletRequest request) {
         String username = tokenProvider.getUsername(tokenProvider.resolveToken(request));
         Ong ong = ongRepository.findByUser(repository.findByUsername(username).get());

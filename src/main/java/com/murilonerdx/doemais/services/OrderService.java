@@ -1,6 +1,5 @@
 package com.murilonerdx.doemais.services;
 
-import com.murilonerdx.doemais.dto.OngDTO;
 import com.murilonerdx.doemais.dto.OrderDTO;
 import com.murilonerdx.doemais.entities.*;
 import com.murilonerdx.doemais.entities.enums.OrderStatus;
@@ -16,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -136,12 +134,13 @@ public class OrderService {
         return (Userman) getAuthentication().getPrincipal();
     }
 
-    public OrderDTO abandonOrder(Long id, HttpServletRequest request){
+    public void abandonOrder(Long id, HttpServletRequest request){
         String username = tokenProvider.getUsername(tokenProvider.resolveToken(request));
         Ong ong = ongRepository.findByUser(userRepository.findByUsername(username).get());
-        Order order = repository.findByOng(ong).orElseThrow(()-> new ResourceNotFoundException("Pedido não encontrado"));
-        repository.delete(order);
-
-        return DozerConverter.parseObject(order, OrderDTO.class);
+        Order order = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Pedido não encontrado"));
+        if(order.getOng().equals(ong)){
+            repository.delete(order);
+            DozerConverter.parseObject(order, OrderDTO.class);
+        }
     }
 }

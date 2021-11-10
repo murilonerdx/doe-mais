@@ -54,7 +54,7 @@ public class ApiOrderController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/abandonOrder/{id}")
     public ResponseEntity<Void> abandonOrder(@PathVariable Long id, HttpServletRequest request){
         service.abandonOrder(id, request);
         return ResponseEntity.noContent().build();

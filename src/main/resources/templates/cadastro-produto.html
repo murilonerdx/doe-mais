@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://thymeleaf.org"
+	   			 xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../Style/nav-bar.css" th:href="@{/static/Style/nav-bar.css}">
+    <link rel="stylesheet" href="../Style/estilo-lista-eventos.css" th:href="@{/static/Style/estilo-lista-eventos.css}">
+    <link rel="stylesheet" href="../Style/footer.css" th:href="@{/static/Style/footer.css}">
+    <link rel="stylesheet" href="../Style/cadastro-produto.css" th:href="@{/static/Style/cadastro-produto.css}">
+</head>
+
+<body>
+
+    <nav>
+        <a class="logo" href="/"><img src="../Styles/doemais.png" style="margin-top:1.5rem; width:13rem;" th:src="@{/static/images/doemais.png}"></a>
+        <div class="mobile-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="pedidos.html">Meus pedidos</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+        </ul>
+
+        <ul>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+        <img src="./assets/img/perfil.jpg" style="width:30px; border-radius: 20px;" alt="" th:src="@{/static/images/perfil.jpg}">
+    </nav>
+
+    <div style="width:100%; height:4rem;">
+
+    </div>
+
+    <div style="width:100%; display: flex; justify-content: center; background-color:rgb(29, 9, 95); padding-top: 2rem; padding-bottom: 4rem;">
+
+        <form action="" method="post" th:object="@{Product}">
+
+            <div class="form-group">
+
+
+                <label for="">Nome do produto:</label>
+                <input type="text" name="name" th:field="*{name}">
+
+                <label for="">Data vencimento:</label>
+                <input type="date" name="dueDate" th:field="*{dueDate}">
+
+                <label for="">Descricao:</label>
+                <textarea name="description" id="" cols="30" rows="10" th:field="*{description}"></textarea>
+
+                <label for="">Foto:</label>
+                <input type="file" name="imageUri" th:field=*{imageUri}>
+
+
+
+                <button class="BuyBtton" sec:authorize="hasRole('ADMIN')">
+                    Cadastrar produto
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+    <footer>
+
+        <div class="div-1">About</div>
+
+        <div class="div-2">Nosso patrocinios</div>
+
+        <div class="div-3">Pages</div>
+
+    </footer>
+
+    <script src="../Javascript/nav-bar.js" th:src="@{/static/Javascript/nav-bar.js}"></script>
+</body>
+
+</html>

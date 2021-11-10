@@ -1,0 +1,432 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+.box{
+	background-color: rgba(255, 255, 255, 0.15); 
+	display:flex; 
+	flex-direction: column; 
+	padding: 5rem; border-radius: 20px;
+}
+
+.logo-img{
+	width: 100%; 
+	height: 20rem;
+	display: flex; 
+	justify-content:center;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* ================================================================================*/
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/Poppins-Bold.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: formFamily;
+    src: url(../fonts/Poppins-Regular.ttf);
+}
+
+body {
+    font-family: formFamily;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-div {
+    width: 50%;
+    height: 100vh;
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.left-div {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    height: 100vh;
+    position: fixed;
+    justify-content: center;
+    font-family: myFirstFont;
+    align-items: center;
+    background-color: rgb(35, 9, 77);
+}
+
+.form-group {
+    margin: 6rem;
+}
+
+form {
+    margin-top: 2rem;
+    font-family: formFamily;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: myFirstFont;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.divEvento {
+    height: 50vh;
+    background-color: rgb(255, 255, 255);
+}
+
+.container-1 {
+    width: 30rem;
+    height: 12rem;
+    border-radius: 20px;
+}
+
+h2 {
+    margin-top: 1rem;
+    font-size: 20px;
+}
+
+.text {
+    padding-left: 20px;
+    color: #fff;
+}
+
+p {
+    margin-top: 1rem;
+    font-family: formFamily;
+    font-size: 12px;
+}
+
+label {
+    margin-right: 1rem;
+    margin-top: 1rem;
+    color: #fff;
+}
+
+.NumberOfTickets {
+    margin-top: 1rem;
+}
+
+input {
+    margin-top: 1rem;
+}
+
+.masc-tickets {
+    width: 5rem;
+    background-color: white;
+    border-radius: 4px;
+    border-color: purple;
+    color: purple;
+    margin-top: 1rem;
+}
+
+.fem-tickets {
+    width: 5rem;
+    background-color: white;
+    border-radius: 4px;
+    border-color: purple;
+    color: purple;
+    margin-top: 1rem;
+}
+
+.meia-tickets {
+    width: 5rem;
+    background-color: white;
+    border-radius: 4px;
+    border-color: purple;
+    color: purple;
+    margin-top: 1rem;
+}
+
+hr {
+    width: 100%;
+    height: 0.1px;
+    color: rgba(0, 0, 0, 0.356);
+    margin-top: 2rem;
+}
+
+.NumberOfTickets {
+    margin-top: 2rem;
+}
+
+.GenderTicket {
+    margin-top: 1rem;
+}
+
+.emailFriends {
+    margin-top: 2rem;
+}
+
+input[type="email"] {
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-color: rgb(36, 29, 29);
+    width: 350px;
+    padding-bottom: 0.5rem;
+    font-family: formFamily;
+}
+
+.element {
+    margin-top: 0.5rem;
+}
+
+.icon-heart {
+    width: 10px;
+    height: 10px;
+}
+
+.BuyBtton {
+    margin-top: 1rem;
+    width: 7rem;
+    height: 2rem;
+    background-color: rgb(34, 0, 128);
+    border-radius: 10px;
+    border-color: rgb(34, 0, 128);
+    color: #fff;
+    font-weight: bold;
+    font-family: formFamily
+}
+
+.div-collapse {
+    padding-top: 2rem;
+    padding-left: 4.5rem;
+}
+
+.collapse-header {
+    width: 80%;
+    border: 1px solid rgba(51, 7, 51, 0.082);
+    margin-top: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px rgba(87, 84, 84, 0.123);
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+.total-price {
+    display: flex;
+    flex: 1;
+}
+
+.price {
+    flex: 1;
+    text-align: right;
+    margin-top: 0.3rem;
+}
+
+.collapsible {
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 17, 17);
+    cursor: pointer;
+    padding: 18px;
+    width: 50%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    border-color: purple transparent;
+    border-width: 1px;
+}
+
+.content {
+    padding: 2rem;
+    display: none;
+    overflow: hidden;
+    background-color: rgba(128, 128, 128, 0.041);
+}
+
+input[type="text"] {
+    padding: 0.4rem;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-color: rgba(36, 29, 29, 0.226);
+    font-family: formFamily;
+}
+
+input[type="password"] {
+    padding: 0.4rem;
+    border-radius: 5px;
+    background-color: rgb(214, 213, 213);
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-color: rgba(36, 29, 29, 0.226);
+    font-family: formFamily;
+}
+
+select {
+    padding: 0.4rem;
+    border-radius: 5px;
+    background-color: rgba(128, 128, 128, 0.144);
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-color: rgba(36, 29, 29, 0.226);
+    font-family: formFamily;
+}
+
+ul li {
+    margin-top: 1rem;
+    color: black;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 1010px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+    .left-div {
+        display: none;
+    }
+    .right-div {
+        width: 100%;
+        height: 100vh;
+    }
+    .GenderTicket {
+        margin-top: 1rem;
+    }
+}

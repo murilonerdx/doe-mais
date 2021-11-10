@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/style/estilo-more-Details.css}"/>
+    <title>Login</title>
+</head>
+<body>
+<div class="space-menu">
+</div>
+<div class="container">
+    <div class="left-div-ghost">
+        <div class="left-div">
+            <form th:action="@{/login}" method="post" th:object="${userman}">
+                <div class="box">
+                    <label for="">Username:</label>
+                    <input type="text" name="username">
+                    <label for="">Senha:</label>
+                    <input type="text" name="password">
+                </div>
+                <input type="submit" value="Login" class="BuyButton">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="right-div">
+    <div class="logo-img">
+        <img th:src="@{/images/doemais.png}">
+    </div>
+</div>
+</body>
+
+</html>

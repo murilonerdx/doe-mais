@@ -5,13 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import javax.servlet.annotation.WebServlet;
 import java.util.List;
 
 @Configuration
-@EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
     private static final MediaType MEDIA_TYPE_YML = MediaType.valueOf("application/x-yaml");
@@ -43,5 +46,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .mediaType("xml", MediaType.APPLICATION_XML)
                 .mediaType("x-yaml", MEDIA_TYPE_YML);
     }
-
 }

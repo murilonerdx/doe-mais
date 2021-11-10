@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../Style/nav-bar.css" th:href="@{/static/Style/nav-bar.css}">
+    <link rel="stylesheet" href="../Style/estilo-lista-eventos.css" th:href="@{/static/Style/estilo-lista-eventos.css}">
+    <link rel="stylesheet" href="../Style/footer.css" th:href="@{/static/Style/footer.css}">
+</head>
+
+<body>
+
+    <nav>
+        <a class="logo" href="/"><img th:style="'background: url(/static/images/doemais.png) margin-top:1rem; width:13rem;"></a>
+        <div class="mobile-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+            <li><a href="/index">Início</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li><a href="/pedidos">Meus pedidos</a></li>
+            <li><a href="/parceiros">Parceiros</a></li>
+        </ul>
+        <ul>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div style="background-color: #FFFF;">
+
+        <div style="width:100%; height:4rem;">
+
+        </div>
+
+        <div class="evento-destaque" th:style="'background: url(/static/images/banner-parceria.jpg)'">
+
+        </div>
+
+
+
+        <div style="display:flex; justify-content: center;">
+
+            <div class="divEvento" th:each="business : ${business}">
+                <ul>
+                    <img class="img-responsive" th:src="*{business.imageUri}">
+                    <li value="${business.username}"></li>
+                    div
+                    <li class="local" value="${business.products}">produtos</li>
+                    <div class="more-details">
+                        <a href="/more-Details-partner">Mais detalhes</a>
+                    </div>
+                </ul>
+            </div>
+
+        </div>
+
+        <footer>
+
+            <div class="div-1">
+
+            </div>
+
+            <div class="div-2">Copyright@ 2021 Doe+</div>
+
+            <div class="div-3"></div>
+
+        </footer>
+    </div>
+
+
+    <script src="../Javascript/nav-bar.js" th:href="@{/static/Javascript/nav-bar.js}"></script>
+
+</body>
+
+</html>

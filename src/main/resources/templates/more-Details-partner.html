@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.com">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../Style/nav-bar.css" th:href="@{/static/Style/nav-bar.css}">
+    <link rel="stylesheet" href="../Style/estilo-lista-eventos.css" th:href="@{/static/Style/estilo-lista-eventos.css}">
+    <link rel="stylesheet" href="../Style/footer.css" th:href="@{/static/Style/footer.css}">
+</head>
+
+<body>
+
+    <nav>
+        <a class="logo" href="/"><img th:src="@{/static/images/doemais.png}" th:style="'margin-top:1rem; width:13rem;'"></a>
+        <div class="mobile-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="pedidos.html">Meus pedidos</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+        </ul>
+		<div><a href="/logout">Logout</a></div>
+    </nav>
+
+    <div style="background-color: #FFFF;">
+
+        <div style="width:100%; height:5rem;">
+
+        </div>
+
+        <div style="width:100%; display:flex; justify-content:center; height:3rem; margin-top:10px; align-items:center; background-color: rgba(128, 128, 128, 0.116);">
+            <h4 th:></h4>
+        </div>
+
+        <div style="display:flex; justify-content: center;">
+
+            <div class="divEvento" th:each="business : ${business}">
+                <ul>
+                    <img src="../empresa-1.jpeg" class="img-responsive" th:src="{business.product.imageUri}">
+                    <li th:text="${business.product.name}"></li>
+                    <li class="local" th:text="${business.products.lenght}"> Produtos</li>
+                    <div class="more-details">
+                        <a href="XXXXX">Fazer o pedido</a>
+                    </div>
+
+                    
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+
+            <div class="div-1">About</div>
+
+            <div class="div-2">Nosso patrocinios</div>
+
+            <div class="div-3">Pages</div>
+
+        </footer>
+
+
+
+
+    </div>
+
+
+    <script src="../Javascript/nav-bar.js" th:href="@{/static/Javascript/nav-bar.js}"></script>
+
+</body>
+
+</html>

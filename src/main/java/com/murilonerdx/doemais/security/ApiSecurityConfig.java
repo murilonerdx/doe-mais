@@ -3,6 +3,7 @@ package com.murilonerdx.doemais.security;
 import com.murilonerdx.doemais.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +22,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+
+@Configuration
 @Order(1)
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -34,8 +35,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

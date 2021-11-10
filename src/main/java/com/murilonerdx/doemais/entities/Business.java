@@ -27,12 +27,7 @@ public class Business {
     private double points;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "TB_BUSINESS_PRODUCT", joinColumns = {
-            @JoinColumn(name = "id_business")
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "id_product")
-    })
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
 }

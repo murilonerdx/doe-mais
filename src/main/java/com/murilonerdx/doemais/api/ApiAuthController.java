@@ -4,6 +4,7 @@ import com.murilonerdx.doemais.dto.CredentialDTO;
 import com.murilonerdx.doemais.dto.OngDTO;
 import com.murilonerdx.doemais.entities.Ong;
 import com.murilonerdx.doemais.entities.Userman;
+import com.murilonerdx.doemais.exceptions.AuthorizationException;
 import com.murilonerdx.doemais.repository.OngRepository;
 import com.murilonerdx.doemais.repository.UserRepository;
 import com.murilonerdx.doemais.security.JwtTokenProvider;
@@ -77,10 +78,14 @@ public class ApiAuthController {
             @ApiImplicitParam(name = "Authorization", value = "Authorization token",
                     required = true, dataType = "string", paramType = "header")})
     @GetMapping("/user")
-    public ResponseEntity<OngDTO> getUser(HttpServletRequest request) {
+    public ResponseEntity<OngDTO> getOng(HttpServletRequest request) {
         String username = tokenProvider.getUsername(tokenProvider.resolveToken(request));
         Ong ong = ongRepository.findByUser(repository.findByUsername(username).get());
+        if(ong == null){
+            throw new AuthorizationException("Você precisa ser uma ong para acessar esse endpoint");
+        }
         OngDTO ongDTO = DozerConverter.parseObject(ong, OngDTO.class);
+
         if(ongDTO == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(ongDTO);
     }

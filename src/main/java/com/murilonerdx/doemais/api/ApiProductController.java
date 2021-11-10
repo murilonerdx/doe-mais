@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/product")
-@Api(tags="Endpoint de Produtos")
+@Api(tags="Endpoint de produtos")
 @ApiImplicitParams({
         @ApiImplicitParam(name = "Authorization", value = "Authorization token",
                 required = true, dataType = "string", paramType = "header") })

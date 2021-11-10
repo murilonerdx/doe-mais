@@ -9,6 +9,8 @@ import com.murilonerdx.doemais.repository.UserRepository;
 import com.murilonerdx.doemais.security.JwtTokenProvider;
 import com.murilonerdx.doemais.util.DozerConverter;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,13 +65,17 @@ public class ApiAuthController {
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");
             }
-
-            return ok(token);
+            Map<String, String> map = new HashMap<>();
+            map.put("token", token);
+            return ok(map);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied!");
         }
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Authorization token",
+                    required = true, dataType = "string", paramType = "header")})
     @GetMapping
     public ResponseEntity<OngDTO> getUser(HttpServletRequest request) {
         String username = tokenProvider.getUsername(tokenProvider.resolveToken(request));

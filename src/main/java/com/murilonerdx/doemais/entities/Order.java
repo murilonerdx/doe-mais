@@ -30,7 +30,7 @@ public class Order {
     private Set<Product> products = new HashSet<>();
 
     @OneToOne()
-    private Ong org;
+    private Ong ong;
 
     public Order(Long id, LocalDateTime moment) {
         this.id = id;

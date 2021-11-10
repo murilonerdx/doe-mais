@@ -1,5 +1,6 @@
 package com.murilonerdx.doemais.services;
 
+import com.murilonerdx.doemais.dto.OngDTO;
 import com.murilonerdx.doemais.dto.OrderDTO;
 import com.murilonerdx.doemais.entities.*;
 import com.murilonerdx.doemais.entities.enums.OrderStatus;
@@ -8,12 +9,15 @@ import com.murilonerdx.doemais.repository.BusinessRepository;
 import com.murilonerdx.doemais.repository.OngRepository;
 import com.murilonerdx.doemais.repository.OrderRepository;
 import com.murilonerdx.doemais.repository.UserRepository;
+import com.murilonerdx.doemais.security.JwtTokenProvider;
 import com.murilonerdx.doemais.util.DozerConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -34,6 +38,9 @@ public class OrderService {
 
     @Autowired
     private BusinessRepository businessRepository;
+
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
     public List<Order> findAll() {
         return repository.findAll();
@@ -127,5 +134,14 @@ public class OrderService {
 
     public Userman getSessionUser() {
         return (Userman) getAuthentication().getPrincipal();
+    }
+
+    public OrderDTO abandonOrder(Long id, HttpServletRequest request){
+        String username = tokenProvider.getUsername(tokenProvider.resolveToken(request));
+        Ong ong = ongRepository.findByUser(userRepository.findByUsername(username).get());
+        Order order = repository.findByOng(ong).orElseThrow(()-> new ResourceNotFoundException("Pedido não encontrado"));
+        repository.delete(order);
+
+        return DozerConverter.parseObject(order, OrderDTO.class);
     }
 }

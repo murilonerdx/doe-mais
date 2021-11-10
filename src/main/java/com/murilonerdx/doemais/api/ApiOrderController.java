@@ -40,9 +40,9 @@ public class ApiOrderController {
         return ResponseEntity.ok().body(orderDTO);
     }
 
-    @PostMapping("/businessProduct/{businessId}")
-    public ResponseEntity<OrderDTO> create(@RequestBody List<Long> productsIds, @PathVariable Long businessId) throws ParseException {
-        OrderDTO orderDTO = service.create(productsIds, businessId);
+    @PostMapping("/businessProduct/{businessId}/{idProduct}")
+    public ResponseEntity<OrderDTO> create(@PathVariable Long idProduct, @PathVariable Long businessId) throws ParseException {
+        OrderDTO orderDTO = service.create(idProduct, businessId);
 
         if (orderDTO == null) throw new ResourceNotFoundException("Você não tem permissão para isso");
         return ResponseEntity.ok().body(orderDTO);

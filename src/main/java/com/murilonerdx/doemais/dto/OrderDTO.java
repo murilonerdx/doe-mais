@@ -18,7 +18,7 @@ public class OrderDTO {
     private Long id;
     private LocalDateTime moment;
 
-    List<ProductDTO> products = new ArrayList<>();
+    ProductDTO product;
 
     public OrderDTO(Order entity) {
         id = entity.getId();

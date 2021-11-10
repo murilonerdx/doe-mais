@@ -25,11 +25,10 @@ public class Order {
     private LocalDateTime moment;
 
 
-    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.DETACH)
-    @JoinTable(name ="tb_order_product", joinColumns = @JoinColumn(name="order_id"), inverseJoinColumns = @JoinColumn(name="product_id"))
-    private Set<Product> products = new HashSet<>();
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.DETACH)
+    private Product products;
 
-    @OneToOne()
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
     private Ong ong;
 
     public Order(Long id, LocalDateTime moment) {

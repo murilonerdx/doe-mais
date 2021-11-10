@@ -51,7 +51,7 @@ public class OrderService {
         return DozerConverter.parseObject(entity, OrderDTO.class);
     }
 
-    public OrderDTO create(List<Long> productsIds, Long id){
+    public OrderDTO create(Long productId, Long id) {
         Optional<Userman> user = Optional.ofNullable(
                 userRepository.findByUsername(
                         getSessionUser().getUsername()
@@ -61,15 +61,14 @@ public class OrderService {
 
         if (user.get().getPermissions().stream().noneMatch(x -> x.getDescription().equals("ROLE_BUSINESS"))) {
             Ong ong = ongRepository.findByUser(user.get());
-            Set<Product> products = new HashSet<>();
             List<Integer> sumTribute = new ArrayList<>();
 
             Business business = businessRepository.findById(id).get();
 
-            extracted(productsIds, products, business);
-            Set<Product> productsAvailable = getCollect(products);
+            Product product = extracted(productId, business);
+            Product productAvailable = getCollect(Objects.requireNonNull(product));
 
-            extractProductSum(sumTribute, productsAvailable);
+            extractProductSum(sumTribute, product);
 
             int points = getPoints(sumTribute, business);
             business.setPoints(points);
@@ -80,7 +79,7 @@ public class OrderService {
                     business.setTribute(business.getTribute() + 3);
                 }
             }
-            Order order = new Order(null, LocalDateTime.now(), productsAvailable, ong);
+            Order order = new Order(null, LocalDateTime.now(), productAvailable, ong);
 
             return DozerConverter.parseObject(repository.save(order), OrderDTO.class);
         }
@@ -96,28 +95,24 @@ public class OrderService {
         return points;
     }
 
-    private void extractProductSum(List<Integer> sumTribute, Set<Product> productsAvailable) {
-        for (Product product : productsAvailable) {
-            Period periodo = Period.between(LocalDate.now(), LocalDate.from(product.getDueDate()));
-            int diferencesDays = periodo.getDays() + (periodo.getMonths() * 30) + (periodo.getYears() * 365);
-            sumTribute.add(diferencesDays);
-        }
+    private void extractProductSum(List<Integer> sumTribute, Product product) {
+        Period periodo = Period.between(LocalDate.now(), LocalDate.from(product.getDueDate()));
+        int diferencesDays = periodo.getDays() + (periodo.getMonths() * 30) + (periodo.getYears() * 365);
+        sumTribute.add(diferencesDays);
     }
 
-    private Set<Product> getCollect(Set<Product> products) {
-        return products.stream()
-                .peek(x -> x.setStatus(OrderStatus.UNAVAILABLE))
-                .collect(Collectors.toSet());
+    private Product getCollect(Product product) {
+        product.setStatus(OrderStatus.UNAVAILABLE);
+        return product;
     }
 
-    private void extracted(List<Long> productsIds, Set<Product> products, Business business) {
+    private Product extracted(Long productsIds, Business business) {
         for (Product product : business.getProducts()) {
-            for (Long productId : productsIds) {
-                if (product.getId() == productId.longValue()) {
-                    products.add(product);
-                }
+            if (product.getId() == productsIds.longValue()) {
+                return product;
             }
         }
+        return null;
     }
 
     public void delete(Long id) {
@@ -134,11 +129,11 @@ public class OrderService {
         return (Userman) getAuthentication().getPrincipal();
     }
 
-    public void abandonOrder(Long id, HttpServletRequest request){
+    public void abandonOrder(Long id, HttpServletRequest request) {
         String username = tokenProvider.getUsername(tokenProvider.resolveToken(request));
         Ong ong = ongRepository.findByUser(userRepository.findByUsername(username).get());
-        Order order = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Pedido não encontrado"));
-        if(order.getOng().equals(ong)){
+        Order order = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado"));
+        if (order.getOng().equals(ong)) {
             repository.delete(order);
             DozerConverter.parseObject(order, OrderDTO.class);
         }

@@ -26,7 +26,7 @@ public class Order {
 
 
     @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.DETACH)
-    private Product products;
+    private Product product;
 
     @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
     private Ong ong;

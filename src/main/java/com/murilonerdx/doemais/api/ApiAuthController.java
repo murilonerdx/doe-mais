@@ -66,9 +66,7 @@ public class ApiAuthController {
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");
             }
-            Map<String, String> map = new HashMap<>();
-            map.put("token", token);
-            return ok(map);
+            return ok(token);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied!");
         }

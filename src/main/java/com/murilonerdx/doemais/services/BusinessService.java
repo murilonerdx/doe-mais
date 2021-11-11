@@ -76,7 +76,7 @@ public class BusinessService {
 
             Business business = repository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Empresa não encontada"));
-            business.getProducts().add(product);
+            business.setProduct(product);
 
             Business saved = repository.save(business);
 

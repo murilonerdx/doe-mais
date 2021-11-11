@@ -33,4 +33,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @ManyToOne()
+    private Business business;
+
 }

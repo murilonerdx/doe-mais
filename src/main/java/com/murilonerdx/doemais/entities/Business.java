@@ -27,7 +27,7 @@ public class Business {
     private double points;
 
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "business", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
 }

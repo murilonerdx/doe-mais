@@ -27,7 +27,7 @@ public class Business {
     private double points;
 
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Product product;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Product> products = new HashSet<>();
 
 }

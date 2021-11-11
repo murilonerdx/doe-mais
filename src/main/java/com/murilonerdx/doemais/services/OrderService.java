@@ -107,8 +107,10 @@ public class OrderService {
     }
 
     private Product extracted(Long productId, Business business) {
-        if (business.getProduct().getId() == productId.longValue()) {
-            return business.getProduct();
+        for (Product product : business.getProducts()) {
+            if (product.getId() == productId.longValue()) {
+                return product;
+            }
         }
         return null;
     }

@@ -1,15 +1,13 @@
 package com.murilonerdx.doemais.services;
 
-import com.murilonerdx.doemais.entities.Business;
-import com.murilonerdx.doemais.entities.Product;
-import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
-import com.murilonerdx.doemais.repository.BusinessRepository;
-import com.murilonerdx.doemais.repository.ProductRepository;
-import com.murilonerdx.doemais.util.DozerConverter;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.murilonerdx.doemais.entities.Product;
+import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
+import com.murilonerdx.doemais.repository.ProductRepository;
 
 @Service
 public class ProductService {

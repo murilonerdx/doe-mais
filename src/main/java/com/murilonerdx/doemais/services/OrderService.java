@@ -1,7 +1,26 @@
 package com.murilonerdx.doemais.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
 import com.murilonerdx.doemais.dto.OrderDTO;
-import com.murilonerdx.doemais.entities.*;
+import com.murilonerdx.doemais.entities.Business;
+import com.murilonerdx.doemais.entities.Ong;
+import com.murilonerdx.doemais.entities.Order;
+import com.murilonerdx.doemais.entities.Product;
+import com.murilonerdx.doemais.entities.Userman;
 import com.murilonerdx.doemais.entities.enums.OrderStatus;
 import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.repository.BusinessRepository;
@@ -10,17 +29,6 @@ import com.murilonerdx.doemais.repository.OrderRepository;
 import com.murilonerdx.doemais.repository.UserRepository;
 import com.murilonerdx.doemais.security.JwtTokenProvider;
 import com.murilonerdx.doemais.util.DozerConverter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {

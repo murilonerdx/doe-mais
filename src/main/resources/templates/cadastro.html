@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Style/estilo-more-Details.css" th:href="@{/style/estilo-more-Details.css}">
 
 
-    <title>Cadastrar Onu</title>
+    <title>Cadastro Empresa</title>
 </head>
 
 <body>
@@ -21,26 +21,24 @@
     <div class="left-div-ghost">
         <div class="left-div">
 
-            <span th:if="${sucesso != null}" th:text="${sucesso}"></span>
-            <form th:action="@{/cadastro-onu}" method="POST" th:object="${ong}">
+            <form th:action="@{/cadastro}" method="POST" th:object="${business}">
 
                 <div style="background-color: rgba(255, 255, 255, 0.15); display:flex; flex-direction: column; padding: 5rem; border-radius: 20px;">
 
                     <label for="">Username:</label>
-                    <input type="text" th:field="*{user.username}" name="username">
+                    <input type="text" name="username" th:field="*{user.username}">
 
                     <label for="">Name:</label>
-                    <input type="text" th:field="*{name}" name="name">
+                    <input type="text" name="name" th:field="*{name}">
 
+                    <label for="">Website:</label>
+                    <input type="text" name="website" th:field="*{website}">
 
-                    <label for="">CNPJ:</label>
-                    <input type="text" th:field="*{cnpj}" name="cnpj">
-
-                    <label for="">Endereço:</label>
-                    <input type="text" th:field="*{address}" name="address">
+                    <label for="">EndereÃ§o:</label>
+                    <input type="text" name="endereco" th:field="*{address}">
 
                     <label for="">Senha:</label>
-                    <input type="password" th:field="*{user.password}" name="password">
+                    <input type="password" name="password" th:field="*{user.password}">
 
 
                     <div th:style="'display:flex'">
@@ -52,7 +50,6 @@
                         </div>
                     </div>
 
-
                 </div>
 
 
@@ -62,6 +59,20 @@
         </div>
     </div>
 </div>
+<div class="right-div">
+
+
+    <div style="width: 100%; height: 20rem;display: flex; justify-content:center; ">
+
+        <img src="../DOE +(1).png" alt="" th:src=@{/images/doemais.png}>
+
+    </div>
+
+
+</div>
+<script src="assets/js/nav-bar.js" th:href="@{/Javascript/nav-bar.js}"></script>
+<script>
+</script>
 
 </body>
 

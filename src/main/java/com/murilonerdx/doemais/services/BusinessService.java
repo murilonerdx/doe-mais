@@ -1,5 +1,16 @@
 package com.murilonerdx.doemais.services;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.murilonerdx.doemais.dto.BusinessDTO;
 import com.murilonerdx.doemais.dto.ProductDTO;
 import com.murilonerdx.doemais.entities.Business;
@@ -10,20 +21,8 @@ import com.murilonerdx.doemais.entities.enums.OrderStatus;
 import com.murilonerdx.doemais.exceptions.DataIntegretyException;
 import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.repository.BusinessRepository;
-import com.murilonerdx.doemais.repository.OngRepository;
 import com.murilonerdx.doemais.repository.UserRepository;
 import com.murilonerdx.doemais.util.DozerConverter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class BusinessService {
@@ -34,11 +33,10 @@ public class BusinessService {
     @Autowired
     private UserRepository userRepository;
 
-    public Business create(BusinessDTO businessDTO) {
+    public Business create(Business business) {
         try {
-            String password = businessDTO.getUser().getPassword();
+            String password = business.getUser().getPassword();
 
-            Business business = DozerConverter.parseObject(businessDTO, Business.class);
             business.setId(null);
             business.getUser().setPassword(new BCryptPasswordEncoder().encode(password));
             business.getUser().getPermissions().add(new Permission(null, "ROLE_BUSINESS"));

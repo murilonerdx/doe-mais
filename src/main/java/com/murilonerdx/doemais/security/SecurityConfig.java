@@ -1,6 +1,7 @@
 package com.murilonerdx.doemais.security;
 
-import com.murilonerdx.doemais.services.UserService;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-import java.util.Arrays;
+import com.murilonerdx.doemais.services.UserService;
 
 
 @Configuration
@@ -28,17 +28,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/h2-console/**","/cadastro").permitAll()
-                .antMatchers("/pedidos/**", "/produtos/**", "/", "/empresas")
+                .antMatchers("/h2-console/**", "/cadastro", "cadastro-onu")
+                .permitAll()
+                .antMatchers("/pedidos/**").hasRole("ONG")
+                .antMatchers("/produtos/**", "/", "/parceiros", "/index")
                 .authenticated()
                 .and()
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/pedidos")
-                        .failureUrl("/login?error=true")
-                )
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .usernameParameter("email")
+//                        .passwordParameter("password")
+//                        .defaultSuccessUrl("/index")
+//                        .failureUrl("/login?error=true")
+//                )
+                .formLogin().loginPage("/login")
+                .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
@@ -48,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userService)
+        .passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean

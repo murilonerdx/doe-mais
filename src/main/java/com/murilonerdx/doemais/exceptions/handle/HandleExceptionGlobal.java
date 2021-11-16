@@ -2,8 +2,7 @@ package com.murilonerdx.doemais.exceptions.handle;
 
 import com.murilonerdx.doemais.exceptions.*;
 import org.hibernate.ObjectNotFoundException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.*;
 
 
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class HandleExceptionGlobal {
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {

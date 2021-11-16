@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.com"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/style/estilo-more-Details.css}"/>
@@ -15,20 +16,27 @@
     <div class="left-div-ghost">
         <div class="left-div">
             <form th:action="@{/login}" method="post" th:object="${userman}">
+
+
                 <div class="box">
+
                     <label for="">Username:</label>
-                    <input type="text" name="username">
+                    <input type="text" name="username" placeholder="username">
                     <label for="">Senha:</label>
-                    <input type="text" name="password">
+                    <input type="password" name="password" placeholder="senha">
+                    <div>
+                        <input type="submit" value="Login" class="BuyBtton">
+                        <a th:style="'margin-left:1rem; color:white; text-decoration:none'" href="/cadastro-onu">Cadastrar
+                            Ong</a>
+                        <a th:style="'margin-left:1rem; color:white; text-decoration:none'" href="/cadastro">Cadastrar
+                            Doador</a>
+
+
+                    </div>
+
                 </div>
-                <input type="submit" value="Login" class="BuyButton">
             </form>
         </div>
-    </div>
-</div>
-<div class="right-div">
-    <div class="logo-img">
-        <img th:src="@{/images/doemais.png}">
     </div>
 </div>
 </body>

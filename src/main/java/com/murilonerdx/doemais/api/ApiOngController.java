@@ -3,10 +3,12 @@ package com.murilonerdx.doemais.api;
 import com.murilonerdx.doemais.dto.BusinessDTO;
 import com.murilonerdx.doemais.dto.OngDTO;
 import com.murilonerdx.doemais.entities.Business;
+import com.murilonerdx.doemais.entities.Ong;
 import com.murilonerdx.doemais.entities.Product;
 import com.murilonerdx.doemais.exceptions.ResourceNotFoundException;
 import com.murilonerdx.doemais.services.BusinessService;
 import com.murilonerdx.doemais.services.OngService;
+import com.murilonerdx.doemais.util.DozerConverter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -35,7 +37,8 @@ public class ApiOngController {
 
     @PostMapping
     public ResponseEntity<OngDTO> create(@RequestBody OngDTO ongDTO) {
-        service.create(ongDTO);
+        Ong ong = DozerConverter.parseObject(ongDTO, Ong.class);
+        service.create(ong);
         return ResponseEntity.ok().build();
     }
 

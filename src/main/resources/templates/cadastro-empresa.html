@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Style/estilo-more-Details.css" th:href="@{/static/Style/estilo-more-Details.css}">
@@ -13,63 +13,60 @@
 
 <body>
 
-    <div class="space-menu">
+<div class="space-menu">
+
+</div>
+
+<div class="container">
+    <div class="left-div-ghost">
+        <div class="left-div">
+
+            <form action="@{/naosei}" method="post" th:object="${Userman}">
+
+                <div style="background-color: rgba(255, 255, 255, 0.15); display:flex; flex-direction: column; padding: 5rem; border-radius: 20px;">
+
+                    <label for="">Username:</label>
+                    <input type="text" name="username" th:field=*{username}>
+
+                    <label for="">Website:</label>
+                    <input type="text" name="website" th:field="*{website}">
+
+                    <label for="">Endereço:</label>
+                    <input type="text" name="endereco" th:field="*{endereco}">
+
+                    <label for="">Senha:</label>
+                    <input type="text" name="password" th:field="*{password}">
+
+
+                    <button class="BuyBtton">
+                        Cadastrar
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="right-div">
+
+
+    <div style="width: 100%; height: 20rem;display: flex; justify-content:center; ">
+
+        <img src="../DOE +(1).png" alt="" th:src=@{/static/images/doemais.png}>
 
     </div>
 
-    <div class="container">
-        <div class="left-div-ghost">
-            <div class="left-div">
 
-                <form action="@{/naosei}" method="post" th:object="${Userman}">
-
-                    <div style="background-color: rgba(255, 255, 255, 0.15); display:flex; flex-direction: column; padding: 5rem; border-radius: 20px;">
-
-                        <label for="">Username:</label>
-                        <input type="text" name="username" th:field=*{username}>
-
-                        <label for="">Website:</label>
-                        <input type="text" name="website" th:field="*{website}">
-
-                        <label for="">Endereço:</label>
-                        <input type="text" name="endereco" th:field="*{endereco}">
-
-                        <label for="">Senha:</label>
-                        <input type="text" name="password" th:field="*{password}">
-
-
-                        <button class="BuyBtton">
-                            Cadastrar
-                        </button>
-
-                    </div>
-
-
-                </form>
-
-
-            </div>
-        </div>
-        </div>
-
-
-
-        <div class="right-div">
-
-
-            <div style="width: 100%; height: 20rem;display: flex; justify-content:center; ">
-
-                <img src="../DOE +(1).png" alt="" th:src=@{/static/images/doemais.png}>
-
-            </div>
-
-
-
-
-        </div>
-        <script src="assets/js/nav-bar.js" th:href="@{/static/Javascript/nav-bar.js}"></script>
-        <script>
-        </script>
+</div>
+<script src="assets/js/nav-bar.js" th:href="@{/static/Javascript/nav-bar.js}"></script>
+<script>
+</script>
 
 </body>
 

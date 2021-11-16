@@ -1,11 +1,23 @@
 package com.murilonerdx.doemais.entities;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.IndexColumn;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.*;
 
 @Data
 @Entity
@@ -27,7 +39,9 @@ public class Business {
     private double points;
 
 
-    @OneToMany(mappedBy = "business", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Product> products = new HashSet<>();
+
+    @OneToMany(orphanRemoval = true, mappedBy ="business", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @IndexColumn(name = "INDEX_COLUMN")
+    private List<Product> products = new LinkedList<>();
 
 }

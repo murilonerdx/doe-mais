@@ -34,9 +34,10 @@ public class ApiBusinessController {
     }
 
     @PostMapping
-    public ResponseEntity<BusinessDTO> create(@RequestBody BusinessDTO business) {
-        Business obj = service.create(business);
-        DozerConverter.parseObject(obj, BusinessDTO.class);
+    public ResponseEntity<BusinessDTO> create(@RequestBody BusinessDTO businessDTO) {
+        Business obj = DozerConverter.parseObject(businessDTO, Business.class);
+        Business entity = service.create(obj);
+        DozerConverter.parseObject(entity, BusinessDTO.class);
         return ResponseEntity.ok().build();
     }
 

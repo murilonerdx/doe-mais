@@ -18,31 +18,30 @@ import com.murilonerdx.doemais.services.BusinessService;
 @Controller
 public class BusinessController {
 
-          @Autowired
-          private BusinessRepository repository;
-          
-          @Autowired
-          private BusinessService service;
+    @Autowired
+    private BusinessRepository repository;
 
-        @GetMapping("/parceiros")
-  		public ModelAndView index() {
-  		ModelAndView modelAndView = new ModelAndView("/parceiros");
-  		Iterable<Business> business = repository.findAll();
-  		modelAndView.addObject("business", business);
-  		return modelAndView;
-      	}
+    @Autowired
+    private BusinessService service;
+
+    @GetMapping("/parceiros")
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView("/parceiros");
+        Iterable<Business> business = repository.findAll();
+        modelAndView.addObject("business", business);
+        return modelAndView;
+    }
 
 
+    @PostMapping("/cadastro")
+    public String save(@Valid Business business, BindingResult result, RedirectAttributes redirect, Authentication auth) {
+        if (result.hasErrors()) return "cadastro";
+        service.create(business);
+        return "login";
+    }
 
-          @PostMapping("/cadastro")
-        public String save(@Valid Business business, BindingResult result, RedirectAttributes redirect, Authentication auth) {
-            if(result.hasErrors()) return "cadastro";
-            service.create(business);
-            return "login";
-        }
-
-          @GetMapping("/cadastro")
-          public String index1(Business business) {
-              return "cadastro";
-          }
+    @GetMapping("/cadastro")
+    public String index1(Business business) {
+        return "cadastro";
+    }
 }

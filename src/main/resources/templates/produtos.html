@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../style/nav-bar.css" th:href="@{/style/nav-bar.css}">
     <link rel="stylesheet" href="../style/estilo-lista-eventos.css" th:href="@{/style/estilo-lista-eventos.css}">
     <link rel="stylesheet" href="../style/footer.css" th:href="@{/style/footer.css}">
+    <link rel="stylesheet" href="../style/pagination.css" th:href="@{/style/pagination.css}">
 </head>
 
 <body>
@@ -58,7 +59,6 @@
 
                         <div class="form-group">
 
-
                             <label for="">Nome do produto</label>
                             <p type="text" style="font-size: small" name="name" th:text="${product.name}"></p>
 
@@ -97,6 +97,29 @@
         </div>
 
 
+    </div>
+    <div aria-label="Pagination" th:if="${products.totalPages gt 0}">
+        <ul class="pagination justify-content-center font-weight-bold">
+            <li class="page-item" th:classappend="${products.number eq 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/produtos/?page={id}(id=${products.number lt 2 ? 1 : products.number})}"
+                   aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${i eq products.number + 1} ? 'active'"
+                th:each="i : ${#numbers.sequence( 1, products.totalPages, 1)}">
+                <a class="page-link" th:href="@{/produtos/?page={id}(id=${i})}" th:text="${i}"
+                   th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+            </li>
+            <li class="page-item" th:classappend="${products.number + 1 eq products.totalPages} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/produtos/?page={id}(id=${products.number + 2})}"
+                   aria-label="Next" title="Next Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
 </div>

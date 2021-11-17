@@ -34,13 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/produtos/**", "/", "/parceiros", "/index")
                 .authenticated()
                 .and()
-//                .formLogin(form -> form
-//                        .loginPage("/login")
-//                        .usernameParameter("email")
-//                        .passwordParameter("password")
-//                        .defaultSuccessUrl("/index")
-//                        .failureUrl("/login?error=true")
-//                )
                 .formLogin().loginPage("/login")
                 .and()
                 .logout()
@@ -53,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-        .passwordEncoder(bCryptPasswordEncoder());
+                .passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean

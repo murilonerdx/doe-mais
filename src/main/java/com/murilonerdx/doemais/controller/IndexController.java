@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value={"/index", "/"})
 public class IndexController {
 
     @Autowired
@@ -23,15 +23,15 @@ public class IndexController {
     @GetMapping
     public ModelAndView index(HttpServletRequest request, Model model) {
         ModelAndView modelAndView = new ModelAndView("/index");
-        getModelAndView(request, model, modelAndView);
 
+        Page<Business> business = getModelAndView(request, model, modelAndView);
+        modelAndView.addObject("business", business);
 
         return modelAndView;
     }
 
-    public Model getModelAndView(HttpServletRequest request, Model mv, ModelAndView modelAndView) {
+    public Page<Business> getModelAndView(HttpServletRequest request, Model mv, ModelAndView modelAndView) {
         int page = 0, size = 5;
-
 
         if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
             page = Integer.parseInt(request.getParameter("page")) - 1;
@@ -41,8 +41,6 @@ public class IndexController {
             size = Integer.parseInt(request.getParameter("size"));
         }
 
-        Page<Business> business = businessRepository.findAll(PageRequest.of(page, size));
-        modelAndView.addObject("business", business);
-        return mv.addAttribute("pag", business);
+        return businessRepository.findAll(PageRequest.of(page, size));
     }
 }

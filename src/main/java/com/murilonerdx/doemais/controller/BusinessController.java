@@ -26,7 +26,7 @@ public class BusinessController {
 
     @GetMapping("/parceiros")
     public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("/parceiros");
+        ModelAndView modelAndView = new ModelAndView("parceiros");
         Iterable<Business> business = repository.findAll();
         modelAndView.addObject("business", business);
         return modelAndView;

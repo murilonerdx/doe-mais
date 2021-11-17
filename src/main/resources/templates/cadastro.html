@@ -26,19 +26,19 @@
                 <div style="background-color: rgba(255, 255, 255, 0.15); display:flex; flex-direction: column; padding: 5rem; border-radius: 20px;">
 
                     <label for="">Username:</label>
-                    <input type="text" name="username" th:field="*{user.username}">
+                    <input type="text" name="username" th:field="*{user.username}" required>
 
                     <label for="">Nome da empresa:</label>
-                    <input type="text" name="name" th:field="*{name}">
+                    <input type="text" name="name" th:field="*{name}" required>
 
                     <label for="">Website:</label>
-                    <input type="text" name="website" th:field="*{website}">
+                    <input type="text" name="website" th:field="*{website}" required>
 
                     <label for="">Endereço:</label>
-                    <input type="text" name="endereco" th:field="*{address}">
+                    <input type="text" name="endereco" th:field="*{address}" required>
 
                     <label for="">Senha:</label>
-                    <input type="password" name="password" th:field="*{user.password}">
+                    <input type="password" name="password" th:field="*{user.password}" required>
 
 
                     <div th:style="'display:flex'">

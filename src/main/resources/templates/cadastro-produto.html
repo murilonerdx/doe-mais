@@ -49,16 +49,16 @@
 
 
             <label for="">Nome do produto</label>
-            <input type="text" name="name" th:field="*{name}">
+            <input type="text" name="name" th:field="*{name}" required>
 
             <label for="">Data vencimento</label>
-            <input type="date" name="data" id="data">
+            <input type="date" name="data" id="data" th:value="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy')}" required>
 
             <label for="">Descricao</label>
             <textarea name="description" id="" cols="30" rows="10" th:field="*{description}"></textarea>
 
             <label for="">Link da foto</label>
-            <input type="text" name="imageUri" th:field=*{imageUri}>
+            <input type="text" name="imageUri" th:field=*{imageUri} required>
 
 
             <input type="submit" value="Cadastrar Produto" class="BuyBtton">

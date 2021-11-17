@@ -15,6 +15,8 @@ import com.murilonerdx.doemais.entities.Business;
 import com.murilonerdx.doemais.repository.BusinessRepository;
 import com.murilonerdx.doemais.services.BusinessService;
 
+import java.util.Objects;
+
 @Controller
 public class BusinessController {
 
@@ -35,7 +37,8 @@ public class BusinessController {
 
     @PostMapping("/cadastro")
     public String save(@Valid Business business, BindingResult result, RedirectAttributes redirect, Authentication auth) {
-        if (result.hasErrors()) return "cadastro";
+
+        if (result.hasErrors() || Objects.equals(business.getUser().getPassword().trim(), "")) return "cadastro";
         service.create(business);
         return "login";
     }

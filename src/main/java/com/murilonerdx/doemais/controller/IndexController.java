@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(value={"/index", "/"})
+@RequestMapping("/")
 public class IndexController {
 
     @Autowired

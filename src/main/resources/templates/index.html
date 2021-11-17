@@ -16,7 +16,7 @@
 <body>
 
 <nav>
-    <a class="logo" href="/index"><img th:src="@{/images/doemais.png}" th:style="'margin-top:1.5rem; width:13rem;'"></a>
+    <a class="logo" href="/"><img th:src="@{/images/doemais.png}" th:style="'margin-top:1.5rem; width:13rem;'"></a>
 
     <div class="mobile-menu">
         <div class="line1"></div>
@@ -24,7 +24,7 @@
         <div class="line3"></div>
     </div>
     <ul class="nav-list">
-        <li><a href="/index">Início</a></li>
+        <li><a href="/">Início</a></li>
         <li><a href="/produtos">Produtos</a></li>
         <li><a href="/pedidos" sec:authorize="hasRole('ROLE_ONG')">Meus pedidos</a></li>
         <li><a href="/parceiros">Parceiros</a></li>

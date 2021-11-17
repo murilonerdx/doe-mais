@@ -22,7 +22,7 @@ public class IndexController {
 
     @GetMapping
     public ModelAndView index(HttpServletRequest request, Model model) {
-        ModelAndView modelAndView = new ModelAndView("/index");
+        ModelAndView modelAndView = new ModelAndView("index");
 
         Page<Business> business = getModelAndView(request, model, modelAndView);
         modelAndView.addObject("business", business);

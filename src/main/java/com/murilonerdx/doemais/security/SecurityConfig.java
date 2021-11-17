@@ -34,8 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/produtos/**", "/", "/parceiros", "/index")
                 .authenticated()
                 .and()
-                .formLogin().loginPage("/login")
-                .and()
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/index")
+                        .failureUrl("/login?error=true")
+                )
                 .logout()
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");

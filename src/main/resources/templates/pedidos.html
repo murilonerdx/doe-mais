@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.com"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="../Style/nav-bar.css" th:href="@{/style/nav-bar.css}">
+    <link rel="stylesheet" href="../Style/estilo-lista-eventos.css" th:href="@{/style/estilo-lista-eventos.css}">
+    <link rel="stylesheet" href="../Style/footer.css" th:href="@{/style/footer.css}">
+</head>
+
+<body>
+
+<nav>
+    <a class="logo" href="/"><img th:src="@{/images/doemais.png}" th:style="'margin-top:1.5rem; width:12rem;'"></a>
+    <div class="mobile-menu">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+    <ul class="nav-list">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/produtos">Produtos</a></li>
+        <li><a href="/pedidos" sec:authorize="hasRole('ROLE_ONG')">Meus pedidos</a></li>
+        <li><a href="/parceiros">Parceiros</a></li>
+        <li><a href="/cadastro-produto" sec:authorize="hasRole('ROLE_BUSINESS')">Cadastrar Produtos</a></li>
+
+    </ul>
+    <ul>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+
+<div th:style="'background-color: #FFFF;'">
+
+    <div class="evento-destaque" th:style="'background-image: url(/images/foto.jpg); object-fit: cover;'">
+
+    </div>
+
+    <div th:style="'display:flex; justify-content: center; align-items: center;'">
+        <hr th:style="'margin: 1.5rem; width: 30%'">
+
+        <h3>Meus produtos</h3>
+
+        <hr th:style="'margin: 1.5rem; width: 30%'">
+
+
+    </div>
+
+    <div th:style="'display:flex; justify-content: center;'">
+
+
+        <div class="divEvento" th:each="order : ${orders}">
+
+            <form th:action="@{/giveup}" method="POST">
+
+                <div class="form-group">
+
+
+                    <label for="">Nome do produto:</label>
+                    <input type="text" name="name" th:value="${order.product.name}" disabled="disabled">
+
+                    <label for="">Data vencimento:</label>
+                    <input type="date" name="data" id="data" th:value="${order.product.dueDate}" disabled="disabled">
+
+                    <label for="">Descricao:</label>
+                    <input type="text" name="description" id="description" th:value="${order.product.description}"
+                           disabled="disabled"><br/>
+
+                    <input type="text" name="id" id="id" th:value="${order.product.id}" th:style="'display:none'"
+                           disabled="disabled">
+
+                    <label for="">Foto:</label></br>
+                    <input type="text" name="imageUri" th:value=*{order.product.imageUri} disabled="disabled">
+
+
+                    <a th:href="@{/giveup/{id}(id=${order.id})}">Abandonar</a>
+
+                </div>
+
+
+            </form>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script src="../Javascript/nav-bar.js" th:href="@{/Javascript/nav-bar.js}"></script>
+
+</body>
+
+</html>

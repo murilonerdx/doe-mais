@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cadastrar produto</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../Style/nav-bar.css" th:href="@{/style/nav-bar.css}">
+    <link rel="stylesheet" href="../Style/estilo-lista-eventos.css" th:href="@{/style/estilo-lista-eventos.css}">
+    <link rel="stylesheet" href="../Style/footer.css" th:href="@{/style/footer.css}">
+    <link rel="stylesheet" href="../Style/cadastro-produto.css" th:href="@{/style/cadastro-produto.css}">
+</head>
+
+<body>
+
+<nav>
+    <a class="logo" href="/"><img th:style="'margin-top:1.5rem; width:13rem;'" th:src="@{/images/doemais.png}"></a>
+    <div class="mobile-menu">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+    <ul class="nav-list">
+        <li><a href="/">Início</a></li>
+        <li><a href="/produtos">Produtos</a></li>
+        <li><a href="/pedidos" sec:authorize="hasRole('ROLE_ONG')">Meus pedidos</a></li>
+        <li><a href="/parceiros">Parceiros</a></li>
+        <li><a href="/cadastro-produto" sec:authorize="hasRole('ROLE_BUSINESS')">Cadastrar Produtos</a></li>
+
+    </ul>
+
+    <ul>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+
+<div style="width:100%; height:4rem;">
+
+</div>
+
+<div style="width:100%; display: flex; justify-content: center; background-color:rgb(29, 9, 95); padding-top: 2rem; padding-bottom: 4rem;">
+
+    <form th:action="@{/cadastrar}" method="POST" th:object="${product}">
+
+        <div class="form-group">
+
+
+            <label for="">Nome do produto</label>
+            <input type="text" name="name" th:field="*{name}" required>
+
+            <label for="">Data vencimento</label>
+            <input type="date" name="data" id="data" th:value="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy')}" required>
+
+            <label for="">Descricao</label>
+            <textarea name="description" id="" cols="30" rows="10" th:field="*{description}"></textarea>
+
+            <label for="">Link da foto</label>
+            <input type="text" name="imageUri" th:field=*{imageUri} required>
+
+
+            <input type="submit" value="Cadastrar Produto" class="BuyBtton">
+
+        </div>
+
+
+    </form>
+
+</div>
+
+<script src="../Javascript/nav-bar.js" th:src="@{/Javascript/nav-bar.js}"></script>
+</body>
+
+</html>
